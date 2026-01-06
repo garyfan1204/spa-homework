@@ -1,0 +1,72 @@
+[
+  {
+    "title": "html與css語法練習",
+    "url": "practice01",
+    "img": "imgay.webp"
+  },
+  {
+    "title": "酒精路跑",
+    "url": "running",
+    "img": "beer.jpg"
+  },
+  {
+    "title": "懶人馬拉松(byAI)",
+    "url": "cauch",
+    "img": "patrick_sleep.png"
+  },
+  {
+    "title": "圖片切版練習",
+    "url": "image ",
+    "img": "stonk.jpg"
+  },
+  {
+    "title": "表單練習1",
+    "url": "form01",
+    "img": "form01.jpg"
+  },
+  {
+    "title": "表單練習2",
+    "url": "form02",
+    "img": "form02.jpg"
+  },
+  {
+    "title": "表格練習1",
+    "url": "table01",
+    "img": "table01.png"
+  },
+  {
+    "title": "表格練習2",
+    "url": "table02",
+    "img": "table02.png"
+  },
+  {
+    "title": "SPA一頁式網站練習",
+    "url": "spa",
+    "img": "spa01.jpg"
+  },
+  {
+    "title": "SPA一頁式網站作業",
+    "url": "spa-homework",
+    "img": "spa02.jpg"
+  },
+  {
+    "title": "db.json練習",
+    "url": "product-table",
+    "img": "json.png"
+  },
+  {
+    "title": "大數據練習",
+    "url": "bigdata",
+    "img": "bigdata.jpg"
+  },
+  {
+    "title": "圖表練習",
+    "url": "chart",
+    "img": "chart.jpg"
+  },
+  {
+    "title": "口罩地圖",
+    "url": "maskmap",
+    "img": "mask.jpg"
+  }
+]

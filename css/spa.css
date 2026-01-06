@@ -1,0 +1,110 @@
+body {
+    font-family: "Potta One", system-ui;
+}
+
+header {
+    width: 100%;
+    position: fixed;
+    z-index: 2;
+}
+
+.footer {
+    background-color: #4b0082;
+    color: #fff;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.line {
+    position: relative;
+}
+
+.line::before {
+    content: "";
+    width: 0.5px;
+    background-color: #000;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.nav-item a {
+    color: #fff !important;
+}
+
+.nav-item:hover a {
+    color: #ffc107 !important;
+}
+
+.host, .recommend {
+    background-size: cover;
+    background-position: center;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    transition: all 0.4s;
+
+    &:hover {
+        transform: scale(1.1);
+    }
+}
+
+.carousel-badge {
+    color: #ffc107;
+    border: 1px solid rgba(255, 193, 7, 0.5);
+    border-radius: 999px;
+    padding: 4px 15px;
+    font-size: 0.85rem;
+    letter-spacing: 0.2rem;
+    display: inline-block;
+}
+
+.carousel-item::before {
+    position: absolute;
+    content: "";
+    inset: 0;
+    background: linear-gradient(45deg, #ceb8b89f, #3f070788);
+    border-radius: 10px;
+}
+
+.carousel-caption h1 {
+    letter-spacing: 1.1rem;
+}
+
+.caption-box {
+    bottom: 50%;
+    right: inherit;
+    transform: translateY(50%);
+}
+
+.host02, .recommend02 {
+    background-image: url(../images/24y.jpg);
+
+    &:hover {
+        background-image: url(../images/hmmhmmhmmhaaa.jpg);
+    }
+}
+
+.host03, .recommend03 {
+    background-image: url(../images/disapoint.jpg);
+
+    &:hover {
+        background-image: url(../images/imsuck.jpg);
+    }
+}
+
+@media screen and (max-width: 991px) {
+    .line::before {
+        display: none;
+    }
+
+    .intro-text {
+        background-color: #00000044;
+        color: #ede6d6;
+        margin: 15px 0;
+    }
+}

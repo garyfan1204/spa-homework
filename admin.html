@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/spa.css">
+    <link rel="stylesheet" href="css/table-rwd.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@200..800&display=swap" rel="stylesheet">
+    <script src="js/bootstrap.bundle.js"></script>
+    <script src="js/jquery-3.7.1.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/counterup2@2.0.2/dist/index.js"></script>
+    <script src="https://unpkg.com/axios@1.6.7/dist/axios.min.js"></script>
+    <script src="js/layout.js"></script>
+    <script src="js/admin.js" defer></script>
+    <title>SPA作業</title>
+    <style>
+        * {
+            color: #fff;
+        }
+
+        body {
+            font-family: "Oxanium", sans-serif;
+            background: linear-gradient(135deg, #0a0f1f, #111867)
+        }
+        
+        .table * {
+            color: #000;
+        }
+
+        .modal-body, .modal-footer {
+            background-color: #0a0f1f;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <section id="community" class="bg-secondary">
+            <div class="container">
+                <div class="text-end">
+                    <i class="fa-brands fa-facebook" style="color: #fff;"></i>
+                    <i class="fa-brands fa-x-twitter" style="color: #fff;"></i>
+                    <i class="fa-brands fa-instagram" style="color: #fff;"></i>
+                </div>
+            </div>
+        </section>
+        <section id="navbar">
+            <nav class="navbar navbar-expand-lg bg-dark">
+                <div class="container">
+                    <i class="fa-solid fa-champagne-glasses fa-2xl" style="color: #fff;"></i>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#banner" data-target="#banner">
+                                    <i class="fa-solid fa-house"></i>
+                                    首頁
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#info" data-target="#info">
+                                    <i class="fa-solid fa-circle-info"></i>
+                                    遊戲特色
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#intro" data-target="#intro">
+                                    <i class="fa-solid fa-lightbulb"></i>
+                                    平台介紹
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#spirit" data-target="#spirit">
+                                    <i class="fa-solid fa-address-card"></i>
+                                    企業精神
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#recommends" data-target="#recommends">
+                                    <i class="fa-solid fa-users"></i>
+                                    名人推薦
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#price" data-target="#price">
+                                    <i class="fa-solid fa-sack-dollar"></i>
+                                    贊助我們
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#contactus" data-target="#contactus">
+                                    <i class="fa-solid fa-address-card"></i>
+                                    聯絡我們
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#recuitment" data-target="#recuitment">
+                                    <i class="fa-solid fa-user-plus"></i>
+                                    加入我們
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="d-flex align-items-center">
+                            <div class="d-none" id="welcome">歡迎 <span></span></div>
+                            <button class="btn btn-warning d-none" id="userbtn">
+                                <i class="fa-solid fa-user"></i>
+                                會員
+                            </button>
+                            <button class="btn btn-danger d-none" id="logoutbtn">
+                                <i class="fa-solid fa-right-from-bracket"></i>
+                                登出
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </section>
+    </header>
+    <main style="padding-top: 80px;">
+        <section id="adminpanel" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2;">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12">
+                        <div class="card mt-5">
+                            <div class="card-header h2 text-bg-primary">會員列表</div>
+                            <div class="card-body">
+                                <table class="table table-rwd">
+                                    <thead>
+                                        <tr>
+                                            <th>會員編號</th>
+                                            <th>會員帳號</th>
+                                            <th>會員等級</th>
+                                            <th>註冊時間</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbody">
+                                        <tr>
+                                            <td data-th="會員編號">尚無資料</td>
+                                            <td data-th="會員帳號">尚無資料</td>
+                                            <td data-th="會員等級">尚無資料</td>
+                                            <td data-th="註冊時間">尚無資料</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="banner">
+            <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" style="width: 100%;">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+                        aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+                        aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+                        aria-label="Slide 3"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3"
+                        aria-label="Slide 4"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="4"
+                        aria-label="Slide 5"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div
+                            style="background-image: url(images/zelda.jpg); background-repeat: no-repeat; background-size: cover; background-position: center; width: 100%; height: 90vh;">
+                        </div>
+                        <div
+                            class="carousel-caption caption-box d-none d-md-block bg-dark bg-opacity-50 rounded-3 p-4 text-start">
+                            <div class="carousel-badge">
+                                <i class="fa-solid fa-hand-back-fist"></i>
+                                史詩冒險風格
+                            </div>
+                            <h1>踏入冒險者的世界</h1>
+                            <p>探索無盡領域、挑戰傳說級怪物，創造屬於你的史詩篇章。</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div
+                            style="background-image: url(images/valorant.webp); background-repeat: no-repeat; background-size: cover; background-position: center; width: 100%; height: 90vh;">
+                        </div>
+                        <div
+                            class="carousel-caption caption-box d-none d-md-block bg-dark bg-opacity-50 rounded-3 p-4 text-start">
+                            <div class="carousel-badge">
+                                <i class="fa-solid fa-people-group"></i>
+                                競技對戰類
+                            </div>
+                            <h1>展開最強對決！</h1>
+                            <p>召集隊友、制定策略，稱霸每一場戰局。</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div
+                            style="background-image: url(images/eldenring.jpg); background-repeat: no-repeat; background-size: cover; background-position: center; width: 100%; height: 90vh;">
+                        </div>
+                        <div
+                            class="carousel-caption caption-box d-none d-md-block bg-dark bg-opacity-50 rounded-3 p-4 text-start">
+                            <div class="carousel-badge">
+                                <i class="fa-solid fa-location-arrow"></i>
+                                開放世界+冒險探索
+                            </div>
+                            <h1>探索每一寸未知的土地</h1>
+                            <p>在你所向披靡的開放世界中自由漫遊，感受無限可能。</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div
+                            style="background-image: url(images/starfield.jpg); background-repeat: no-repeat; background-size: cover; background-position: center; width: 100%; height: 90vh;">
+                        </div>
+                        <div
+                            class="carousel-caption caption-box d-none d-md-block bg-dark bg-opacity-50 rounded-3 p-4 text-start">
+                            <div class="carousel-badge">
+                                <i class="fa-solid fa-martini-glass"></i>
+                                科幻未來/太空風格
+                            </div>
+                            <h1>超越現實，進入未來的邊境</h1>
+                            <p>在星際之間旅行，見證科技文明的巔峰。</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div
+                            style="background-image: url(images/spiritfarer.jpg); background-repeat: no-repeat; background-size: cover; background-position: center; width: 100%; height: 90vh;">
+                        </div>
+                        <div
+                            class="carousel-caption caption-box d-none d-md-block bg-dark bg-opacity-50 rounded-3 p-4 text-start">
+                            <div class="carousel-badge">
+                                <i class="fa-solid fa-martini-glass"></i>
+                                輕鬆遊玩
+                            </div>
+                            <h1>獨立遊戲文青風</h1>
+                            <p>享受最溫柔、最療癒的遊戲時光。</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </section>
+        <section id="info">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-md-5" style="background-image: url(images/steam.jpg); background-size: cover; background-repeat: no-repeat; background-position: center; height: 600px;">
+                    </div>
+                    <div class="col-md-7 p-5">
+                        <div class="h1">最完整的<span class="text-success">遊戲資料</span><br>平台</div>
+                        <p>用數據帶你掌握遊戲世界的每一面。</p>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="h4">
+                                    收錄遊戲
+                                    <i class="fa-solid fa-gamepad"></i>
+                                </div>
+                                <div class="h2 text-primary counter01">
+                                    5,00+
+                                    <span class="h4">款</span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="h4">
+                                    分類篩選
+                                    <i class="fa-solid fa-folder-closed"></i>
+                                </div>
+                                <div class="h2 text-info counter04">
+                                    50+
+                                    <span class="h4">種</span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="h4 bi">
+                                    支援遊戲討論區
+                                    <i class="fa-solid fa-comment-dots"></i>
+                                </div>
+                                <div class="h2 text-danger counter02">
+                                    300+
+                                    <span class="h4">款</span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="h4">
+                                    平均在線玩家
+                                    <i class="fa-solid fa-user-group"></i>
+                                </div>
+                                <div class="h2 text-warning counter03">
+                                    50,000+
+                                    <span class="h4">人</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="intro" class="position-relative">
+            <div class="container">
+                <div class="row justify-content-start align-items-center" style="min-height: 600px;">
+                    <div class="h-100 position-absolute end-0 col-md-5 px-0"
+                        style="background-image: url(images/cyberpunk.jpg); background-size: cover; background-position: center;">
+                    </div>
+                    <div class="col-md-7 intro-text" style="z-index: 1;">
+                        <div class="h1 text-center">你的遊戲世界，從這裡開始</div>
+                        <p class="d-flex justify-content-center">
+                            在資訊爆炸的時代，想找到真正適合自己的遊戲並不容易。<br>
+                            我們以整理、分類、統整為核心，透過清楚的架構與直覺的介面，<br>
+                            讓玩家能在最短時間內掌握遊戲重點，不再被分散的資訊困擾。<br>
+                            我們結合資料分析與精準篩選，只為讓你能更輕鬆地踏入下一段冒險。<br>
+                            這裡，是你探索遊戲世界最可靠的起點。
+                        </p>
+                        <button class="btn btn-warning translate">查看更多</button>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="h1 text-center">找到喜歡的遊戲</div>
+                                <p>
+                                    有時候，你不是沒有時間玩，而是沒有時間「找」。
+                                    透過我們的智慧搜尋與精細分類，你能快速縮小範圍，
+                                    依照風格、平台、類型、評價、玩法找到更貼近需求的作品。
+                                    我們讓資訊變得更清楚、更集中的原因很簡單：<br>
+                                    希望你花更少時間決定，花更多時間享受遊戲。
+                                </p>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="h1 text-center">陪你走進每段冒險</div>
+                                <p>
+                                    每一款遊戲，都有它獨特的靈魂與故事。<br>
+                                    無論你愛劇情、愛競技，還是想找一款輕鬆休閒的作品，
+                                    我們以最貼近玩家的方式，呈現清楚、可靠、完整的遊戲資訊。<br>
+                                    我們不只希望你找到「好玩的」，<br>
+                                    更希望你找到「屬於你的」遊戲。<br>
+                                    讓我們陪你一起走進每一段新的冒險旅程。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="spirit" class="d-flex align-items-center" style="background-color: #1e3a8a; height: 500px;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 text-center">
+                        <i class="fa-solid fa-magnifying-glass fa-8x mt-3"></i>
+                        <div class="h1 mt-3" style="color: #e2e8f0;">找遊戲不再困難</div>
+                        <P class="mt-3 text-start d-none d-md-block" style="color: #e2e8f0;">
+                            透過精準分類與智慧搜尋，你能在最短時間找到最符合喜好的遊戲。
+                            從大作到獨立小品，每一款都能被快速定位。
+                            你的時間，就應該用在開始冒險，而不是找遊戲。
+                        </P>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <i class="fa-solid fa-bolt fa-8x mt-3"></i>
+                        <div class="h1 mt-3" style="color: #e2e8f0;">順暢的操作</div>
+                        <P class="mt-3 text-start d-none d-md-block" style="color: #e2e8f0;">
+                            我們設計簡潔直覺的介面，不需要學習、不需等待、沒有障礙。
+                            每一次點擊、每一次搜尋，都能快速回應你。
+                            讓你把所有注意力都放在遊戲上，而不是介面上。
+                        </P>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <i class="fa-solid fa-rocket fa-8x mt-3"></i>
+                        <div class="h1 mt-3" style="color: #e2e8f0;">挑戰極限</div>
+                        <P class="mt-3 text-start d-none d-md-block" style="color: #e2e8f0;">
+                            遊戲世界無邊無際，而我們的目標是與玩家一起突破想像。
+                            從系統架構、資訊呈現到搜尋速度，我們不斷優化、不斷前進。
+                            就是要讓你在這裡的每一秒，都比上一秒更好。
+                            與玩家一起進化，永遠是我們的動力。
+                        </P>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="recommends">
+            <div class="container">
+                <div class="display-5 text-center">強力推薦</div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="d-flex align-items-center">
+                            <i class="fa-solid fa-user fa-6x col-4 me-3"></i>
+                            <div>
+                                <div class="h1 text-center my-3">資深玩家 Kevin</div>
+                                <p>玩這麼多年遊戲，最累的其實不是破關，而是找遊戲。這個網站把繁雜的資訊整理得非常清楚，分類完整、搜尋很快，想找什麼類型的遊戲一眼就能看到重點。我現在常常用它來確認新作資訊或找類似遊戲，真的節省我超多時間。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex align-items-center">
+                            <div class="recommend recommend02 col-4 me-3"></div>
+                            <div>
+                                <div class="h1 text-center my-3">實況主 Nini</div>
+                                <p>我每次開新遊戲前，一定會先來這裡確認遊戲內容。因為有清楚的特色介紹、玩法概念、評價與重點整理，對需要快速掌握遊戲資訊的實況主來說實在太方便了。而且網站介面乾淨、速度快，手機也很好用。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="d-flex align-items-center">
+                            <div class="recommend recommend03 col-4 me-3"></div>
+                            <div>
+                                <div class="h1 text-center my-3">遊戲開發者 Leo</div>
+                                <p>作為開發者，我很清楚遊戲資訊的重要性。這個平台在介紹遊戲時不浮誇、不過度包裝，給玩家的是正確、乾淨、實用的資料。它讓更多人了解作品真正的特色，我認為對新作曝光有非常正面的價值。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex align-items-center">
+                            <i class="fa-solid fa-user-group fa-6x col-4 me-3"></i>
+                            <div>
+                                <div class="h1 text-center my-3">遊戲評論者 Aya</div>
+                                <p>市面上很多遊戲資訊平台不是太散亂，就是資訊太多看不完。但這個網站做到了剛剛好的平衡：內容整理得很細緻，但閱讀起來卻非常輕鬆。能一眼看到遊戲的重點、分類、評分、特色，對我這種需要大量查資料的人來說簡直救星。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="price" class="position-relative">
+            <div class="container">
+                <div class="row justify-content-start align-items-center" style="min-height: 600px;">
+                    <div class="h-100 position-absolute end-0 col-lg-5 px-0"
+                        style="background-image: url(images/treasure.png); background-size: cover; background-position: center;">
+                    </div>
+                    <div class="col-lg-7 intro-text" style="z-index: 1;">
+                        <div class="display-5">贊助我們</div>
+                        <dl class="row">
+                            <dt class="col-sm-3" style="color: #3b82f6;">
+                                Starter Player<br>
+                                入門玩家方案 — NT$150/月
+                            </dt>
+                            <dd class="col-sm-9">
+                                <p>基礎遊戲推薦加速(更快看到符合興趣的選項)</p>
+                                <p>個人收藏清單上限提升</p>
+                                <p>預先體驗部分新功能(Beta)</p>
+                                <p>贊助者小徽章(Starter)</p>
+                            </dd>
+
+                            <dt class="col-sm-3" style="color: #10b981;">
+                                Pro Explorer<br>
+                                專業探索者方案 — NT$350/月
+                            </dt>
+                            <dd class="col-sm-9">
+                                <p>擁有 Starter 全部福利</p>
+                                <p>AI 深度分析專屬開啟(更精準的推薦模型)</p>
+                                <p>提供遊戲模糊搜尋(依心情、玩法、節奏查詢)</p>
+                                <p>收藏清單無上限</p>
+                                <p>熱門遊戲趨勢圖優先使用</p>
+                                <p>贊助者徽章升級(Pro)</p>
+                            </dd>
+
+                            <dt class="col-sm-3" style="color: #ef4444;">
+                                Legend Supporter<br>
+                                傳奇贊助者方案 — NT$650/月
+                            </dt>
+                            <dd class="col-sm-9">
+                                <p>擁有 Starter + Pro 全部福利</p>
+                                <p>AI 個人化遊戲報告(每週推薦與分析)</p>
+                                <p>新作專屬優先通知(第一批收到消息)</p>
+                                <p>遊戲資料完整解鎖(更細的數據與評價分析)</p>
+                                <p>個人專屬主題皮膚(未來推出時自動解鎖)</p>
+                                <p>你的名稱會被列入「贊助者名譽牆」</p>
+                                <p>尊榮徽章(Legend)</p>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="contactus">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!4v1763615624807!6m8!1m7!1sl9F89LD6NAJBge4v_RAb0Q!2m2!1d35.67269686716085!2d139.7370741086598!3f132.6427751229195!4f52.13237921938344!5f0.7820865974627469"
+                            width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="" class="form-label">姓名</label>
+                        <input type="text" class="form-control">
+                        <label for="" class="form-label">email</label>
+                        <input type="email" class="form-control">
+                        <label for="" class="form-label">問題回報</label>
+                        <textarea name="" class="form-control" rows="5" id=""></textarea>
+                        <div class="text-center mt-3">
+                            <button class="btn btn-primary">取消</button>
+                            <button class="btn btn-success">確認</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="recuitment">
+            <div class="container-fluid">
+                <div class="row" style="min-height: 360px;">
+                    <div class="col-lg-6"
+                        style="background-image: url(images/clown.png); background-size: cover; background-position: center;">
+                        <div class="h-100 row align-items-center">
+                            <div class="badge col-md-7" style="background-color: #00000044; font-size: 16px;">
+                                <small>加入我們</small>
+                                <div class="h3">求徵可悲小丑</div>
+                                <p>薪資待遇：無</p>
+                                <p>工作內容：譁眾取寵，你應該在車底，不應該在車裡</p>
+                                <a href="" class="btn btn-outline-danger">了解詳情</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6"
+                        style="background-image: url(images/goblin.webp); background-size: cover; background-position: center;">
+                        <div class="h-100 row align-items-center">
+                            <div class="badge col-md-7" style="background-color: #00000044; font-size: 16px;">
+                                <small>加入我們</small>
+                                <div class="h3">求徵可悲哥布林</div>
+                                <p>薪資待遇：無</p>
+                                <p>工作內容：哥布林，在一起，強大</p>
+                                <a href="" class="btn btn-outline-success">了解詳情</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="footer">
+            版權所有© 2025 范秝榤
+        </div>
+    </footer>
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header text-bg-warning">
+                    <h1 class="modal-title fs-5" id="loginModalLabel">會員登入</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="" class="form-label">帳號</label>
+                        <input type="text" class="form-control is-invalid" id="name" minlength="0" maxlength="10" required>
+                        <div class="invalid-feedback">請輸入長度10以內的英數字</div>
+                        <div class="valid-feedback">輸入正確</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">密碼</label>
+                        <input type="text" class="form-control is-invalid" id="pwd" minlength="0" maxlength="12" required>
+                        <div class="invalid-feedback">請輸入長度12以內的英數字</div>
+                        <div class="valid-feedback">輸入正確</div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="me-auto" data-bs-toggle="modal" data-bs-target="#registerModal">新用戶?</a>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" id="login">確認</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header text-bg-success">
+                    <h1 class="modal-title fs-5" id="registerModalLabel">會員註冊</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row line">
+                        <div class="col-md-6">
+                            <div class="h3">會員制守則</div>
+                            1 = 11/(45-1)*4<br>
+                            2 = -11+4-5+14<br>
+                            3 = 11*-4+51-4<br>
+                            4 = -11-4+5+14<br>
+                            5 = 11-4*5+14<br>
+                            6 = 1-14+5+14<br>
+                            7 = 11-4+5-1-4<br>
+                            <div class="form-check form-switch">
+                                <input type="checkbox" name="" id="agree" class="form-check-input">
+                                <label for="" class="form-label">不同意(悲)</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="" class="form-label">帳號</label>
+                                <input type="text" class="form-control is-invalid" id="username" required>
+                                <div class="invalid-feedback" id="isexist">請輸入長度10以內的英數字</div>
+                                <div class="valid-feedback">輸入正確</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="" class="form-label">密碼</label>
+                                <input type="text" class="form-control is-invalid" id="password" required>
+                                <div class="invalid-feedback">請輸入長度12以內的英數字</div>
+                                <div class="valid-feedback">輸入正確</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="" class="form-label">確認密碼</label>
+                                <input type="text" class="form-control is-invalid" id="confirm_pwd" required>
+                                <div class="invalid-feedback">與密碼不一致</div>
+                                <div class="valid-feedback">與密碼一致</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="" class="form-label">email</label>
+                                <input type="email" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="me-auto" data-bs-toggle="modal" data-bs-target="#loginModal">已有帳號?</a>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" id="register">註冊</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
