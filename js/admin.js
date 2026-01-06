@@ -35,7 +35,7 @@ $(function() {
         }
     
         axios
-        .get("http://127.0.0.1:5000/api/me", {
+        .get(`${API_URL}/api/me`, {
             headers: { Authorization: `Bearer ${token}` },
         })
         .then((response) => {

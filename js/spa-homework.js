@@ -1,3 +1,5 @@
+const API_URL = "https://127.0.0.1:5000/api"
+
 const counterUp = window.counterUp.default;
 
 const callback = (entries) => {
@@ -63,22 +65,6 @@ $(function () {
 		timer = setTimeout(() => {
 			if (username.val().length > 0 && username.val().length < 11) {
 				checked_is_valid(username)
-				// axios
-				// 	.post("http://127.0.0.1:5000/api/checkuni", {
-				// 		username: username.val(),
-				// 	})
-				// 	.then((response) => {
-				// 		console.log(response);
-				// 		if (response.data.status) {
-				// 			checked_is_valid(username)
-				// 		} else {
-				// 			checked_is_invalid(username)
-				// 			isexist.text(response.data.error);
-				// 		}
-				// 	})
-				// 	.catch((error) => {
-				// 		console.log(error);
-				// 	});
 			} else {
 				checked_is_invalid(username)
 				isexist.text("請輸入長度10以內的英數字");
@@ -124,7 +110,7 @@ $(function () {
 			};
 
 			axios
-				.post("http://127.0.0.1:5000/api/register", jsonData)
+				.post(`${API_URL}/register`, jsonData)
 				.then(function (response) {
 					console.log(response);
 					if (response.status == 200) {
@@ -182,7 +168,7 @@ $(function () {
 			};
 
 			axios
-			.post("http://127.0.0.1:5000/api/login", jsonData)
+			.post(`${API_URL}/login`, jsonData)
 			.then(function (response) {
 				console.log(response);
 				if (response.data.status) {
@@ -239,7 +225,7 @@ $(function () {
 		}
 
 		axios
-		.get("http://127.0.0.1:5000/api/me", {
+		.get(`${API_URL}/me`, {
 			headers: { Authorization: `Bearer ${token}` },
 		})
 		.then((response) => {
